@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.connection.driver_class">com.ibm.db2.jcc.DB2Driver</property>
+    <property name="hibernate.connection.url">jdbc:db2://172.24.20.17:50000/prueba</property>
+    <property name="hibernate.connection.username">pruebadb</property>
+    <property name="hibernate.connection.password">1234_practica</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.DB2Dialect</property>
+    <property name="hibernate.default_schema">PRUEBA_SCHEMA</property>
+    <property name="show_sql">true</property>
+
+    <mapping resource="/mappings/Empleados.xml"/>
+
+  </session-factory>
+</hibernate-configuration>

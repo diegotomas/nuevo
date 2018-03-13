@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.prueba.spring.model.Empleado" table="prueba_schema.empleados" dynamic-update="true">
+		<id name="id">
+            <generator class="identity"/>
+        </id>
+        <property name="nombre" column="nombre" type="string"/>
+	   	<property name="apellidos" column="apellidos" type="string"/>
+	   	<property name="email" column="email" type="string"/>
+	   	<property name="user" column="user" type="string"/>
+	   	<property name="password" column="password" type="string"/>
+	   	<property name="f_nacimiento" column="f_nacimiento" type="timestamp"/>
+	   	<property name="rol" column="rol" type="string"/>
+	</class>
+</hibernate-mapping>

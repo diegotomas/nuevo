@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+		<!-- dataSource para inyectar en aquellos bean que hagan uso de la clase 
+		JdbcDaoSupport -->
+	<bean id="daoEmpleados"
+		class="com.prueba.spring.dao.DAOEmpleado" autowire="byName" name="daoEmpleados">
+		
+	</bean>
+	
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.ibm.db2.jcc.DB2Driver" />
+		<property name="url" value="jdbc:db2://172.24.20.17:50000/prueba" />
+		<property name="username" value="pruebadb" />
+		<property name="password" value="1234_practica" />
+	</bean>
+	
+	<bean id="liquibase"
+		class="liquibase.integration.spring.SpringLiquibase">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="contexts" value="test, production"/>
+		<property name="changeLog" value="classpath:db-changelog.xml"/>
+	</bean>
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+		depends-on="liquibase" autowire="byName" name="sessionFactory">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="com.technoetic.xplanner.domain"></property>
+		<property name="mappingLocations" value="classpath:/mappings/*.xml" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.DB2Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean class = "org.springframework.web.context.support.ServletContextAttributeExporter">
+		<property name="attributes">
+			<map>
+				<entry key="daoEmpleados" >
+					<ref bean="daoEmpleados"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
+</beans>
